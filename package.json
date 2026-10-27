@@ -1,6 +1,6 @@
 {
   "name": "ascii-pond",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ASCII water on a canvas: waves, ripples and pointer splashes. Framework-free, zero dependencies.",
   "license": "Apache-2.0",
   "author": "Jerry Xiao",
