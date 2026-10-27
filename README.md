@@ -1,9 +1,11 @@
 # ascii-pond
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/koi-dark.gif">
-  <img alt="ASCII koi swimming in an ascii-pond" src="docs/koi-light.gif">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/pond-dark.gif">
+  <img alt="ASCII water texture with ripples spreading from the pointer" src="docs/pond-light.gif">
 </picture>
+
+Shown with `ripples: true`. The web of light under the ripples is the xiao.sh water texture, which this package does not draw.
 
 Originally from [xiao.sh](https://x.com/inperspicuous/status/2077676490234224845).
 
