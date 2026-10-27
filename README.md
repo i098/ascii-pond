@@ -1,5 +1,7 @@
 # ascii-pond
 
+![ASCII ripples spreading from a pointer splash](docs/demo.png)
+
 ASCII water on a canvas. Waves spread, ripples fade, and the pointer splashes the surface.
 No framework and no dependencies.
 
