@@ -25,8 +25,10 @@ export interface MountOptions {
   fontFamily?: string;
   // canvas fill behind the glyphs (default the pond floor, "#030c0d"); "transparent" clears
   background?: string;
-  // pointer ripples (default true)
+  // pointer input: splashes, and swimmers steer away from the pointer (default true)
   interactive?: boolean;
+  // draw the waves; off by default, so the surface stays clear (default false)
+  ripples?: boolean;
   // draw one still frame and never animate (default: the prefers-reduced-motion setting)
   reducedMotion?: boolean;
   // builds the scene for a grid; called again on every resize (default: plain water)
@@ -50,6 +52,7 @@ export function mountPond(target: HTMLElement, options: MountOptions = {}): Pond
   const background = options.background ?? POND_BG_HEX;
   const makeScene = options.scene ?? ((cols: number, rows: number) => new Pond(cols, rows));
   const reduced = options.reducedMotion ?? window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+  const ripples = options.ripples ?? false;
 
   const own = !(target instanceof HTMLCanvasElement);
   const canvas = own ? document.createElement("canvas") : (target as HTMLCanvasElement);
@@ -98,12 +101,13 @@ export function mountPond(target: HTMLElement, options: MountOptions = {}): Pond
       const py = (y + 0.5) * lineH;
       for (let x = 0; x < w; x += 1) {
         let g = scene.cell?.(x, y) ?? null;
-        if (!g) {
+        if (!g && ripples) {
           const v = field[y * W + x];
           const b = waterBucket(v < 0 ? -v : v);
           if (b === 0) continue;
           g = (v > 0 ? CREST : TROUGH)[b];
         }
+        if (!g) continue;
         ctx.fillStyle = g.color;
         ctx.fillText(g.ch, x * cellW, py);
       }

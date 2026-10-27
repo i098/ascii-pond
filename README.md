@@ -1,25 +1,14 @@
 # ascii-pond
 
-```
-        ··         ··
-      ·˙·  ···˙···  ·˙·
-     ·˙˙˙˙˙~·~·~·~˙˙˙˙˙·
-    ·˙·~~·˙ ····· ˙·~~˙˙˙····· ······
-    ·· ˙· ˙ ~·~·~ ˙ ·˙ ~~  ·˙˙˙˙˙·  ˙˙·
-    ·˙·~~·˙ ····· ˙·~˙~~˙~˙~˙~˙~˙~˙~~˙~·
-     ·˙˙˙˙˙~·~·~·~˙˙·~~~≈˙˙ ·˙˙˙· ˙˙≈~˙~˙···     ····
-      ·˙·  ···˙···  ˙~ ˙··~ ~·~·~ ~··˙ ~˙  ···˙···  ·˙·
-        ····     ···˙~˙~≈˙˙ ·˙˙˙· ˙˙≈~~~·˙˙~·~·~·~˙˙˙˙˙·
-                     ·~˙~~˙~˙~˙~˙~˙~˙~~˙~·˙ ····· ˙·~~·˙·
-                      ·˙˙  ·˙˙˙˙˙·  ~~ ˙· ˙ ~·~·~ ˙ ·˙ ··
-                        ······ ·····˙˙˙~~·˙ ····· ˙·~~·˙·
-                                     ·˙˙˙˙˙~˙~˙~˙~˙˙˙˙˙·
-                                      ·˙·  ·˙˙˙˙˙·  ·˙·
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/koi-dark.gif">
+  <img alt="ASCII koi swimming in an ascii-pond" src="docs/koi-light.gif">
+</picture>
 
-![ASCII ripples spreading from a pointer splash](docs/demo.png)
+Originally from [xiao.sh](https://x.com/inperspicuous/status/2077676490234224845).
 
-ASCII water on a canvas. Waves spread, ripples fade, and the pointer splashes the surface.
+ASCII water on a canvas. The pointer splashes the surface, and waves spread and fade.
+The waves are hidden by default; pass `ripples: true` to draw them.
 The pond also steers anything that swims in it away from the pointer.
 No framework and no dependencies.
 
@@ -30,6 +19,8 @@ The koi that swim in it are a separate package: [ascii-koi](https://github.com/i
 ```sh
 npm install ascii-pond
 ```
+
+The same version is on GitHub Packages as `@i098/ascii-pond` (add `@i098:registry=https://npm.pkg.github.com` to `.npmrc`).
 
 ## Usage
 
@@ -44,7 +35,7 @@ pond.destroy();
 `mountPond(target, options)` takes a `<canvas>` or any element. For an element, it adds a canvas that fills the element.
 
 - The grid follows the size of the box (`ResizeObserver`).
-- Pointer moves and clicks make ripples, and the pond steers swimmers away from the pointer.
+- Pointer moves and clicks splash the water, and the pond steers swimmers away from the pointer.
 - Drawing stops while the canvas is off-screen or the tab is hidden.
 - With `prefers-reduced-motion: reduce`, it draws one still frame and ignores the pointer.
 
@@ -54,7 +45,8 @@ pond.destroy();
 | `lineHeight` | `1.2` | Row height as a multiple of `fontSize` |
 | `fontFamily` | system monospace | Font for the glyphs |
 | `background` | `"#030c0d"` | Canvas fill; `"transparent"` clears instead |
-| `interactive` | `true` | Pointer ripples |
+| `interactive` | `true` | Pointer splashes and steering |
+| `ripples` | `false` | Draw the waves |
 | `reducedMotion` | the user setting | Draw one still frame |
 | `scene` | plain water | `(cols, rows) => Scene`: draw your own layer over the water |
 
