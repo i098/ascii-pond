@@ -20,6 +20,7 @@
 ![ASCII ripples spreading from a pointer splash](docs/demo.png)
 
 ASCII water on a canvas. Waves spread, ripples fade, and the pointer splashes the surface.
+The pond also steers anything that swims in it away from the pointer.
 No framework and no dependencies.
 
 The koi that swim in it are a separate package: [ascii-koi](https://github.com/i098/ascii-koi).
@@ -43,7 +44,7 @@ pond.destroy();
 `mountPond(target, options)` takes a `<canvas>` or any element. For an element, it adds a canvas that fills the element.
 
 - The grid follows the size of the box (`ResizeObserver`).
-- Pointer moves and clicks make ripples.
+- Pointer moves and clicks make ripples, and the pond steers swimmers away from the pointer.
 - Drawing stops while the canvas is off-screen or the tab is hidden.
 - With `prefers-reduced-motion: reduce`, it draws one still frame and ignores the pointer.
 
@@ -68,6 +69,13 @@ const pond = new Pond(80, 24);
 pond.splash(40, 12, 6);
 pond.step(16); // ms since the last frame
 const height = pond.field[12 * pond.W + 40];
+
+// steer a swimmer: push where it heads next away from the pointer
+pond.mouse = { x: 40, y: 12 }; // pointer cell
+const next = { x: 44, y: 26 }; // x in cells, y in half-cells (2 per row)
+if (pond.steer(next, 42, 25)) {
+  // the pointer startled it; `next` now points away
+}
 ```
 
 ## Demo

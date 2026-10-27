@@ -38,7 +38,7 @@ function waveStep(cur: Float32Array, prev: Float32Array, w: number, h: number, d
 export class Pond {
   readonly W: number;
   readonly H: number;
-  // cursor cell, for scenes that react to the pointer; the water itself ignores it
+  // pointer cell: ripples come from the renderer; `steer` turns swimmers away from it
   mouse: { x: number; y: number } | null = null;
   private splashes: { x: number; y: number; amp: number }[] = [];
   private hCur: Float32Array;
@@ -68,6 +68,22 @@ export class Pond {
     const yi = Math.round(y);
     if (xi < 1 || yi < 1 || xi >= this.W - 1 || yi >= this.H - 1) return;
     this.hCur[yi * this.W + xi] -= amp;
+  }
+
+  // Steer a swimmer away from the pointer: push `target` (where it heads next) out from a
+  // pointer within reach. Positions are in cells across and half-cells down (2 per row,
+  // as on a half-block raster). Returns true when the pointer startled the swimmer.
+  steer(target: { x: number; y: number }, x: number, y: number): boolean {
+    const m = this.mouse;
+    if (!m) return false;
+    const dx = x - m.x;
+    const dy = y - m.y * 2;
+    const d = Math.hypot(dx, dy);
+    if (d >= 24 || d <= 0.001) return false;
+    const f = (24 - d) * 0.5;
+    target.x += (dx / d) * f;
+    target.y += (dy / d) * f;
+    return true;
   }
 
   // Advance the water on a fixed 30Hz clock: the stencil's wave speed and damping are
