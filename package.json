@@ -1,0 +1,43 @@
+{
+  "name": "ascii-pond",
+  "version": "0.1.0",
+  "description": "ASCII water on a canvas: waves, ripples and pointer splashes. Framework-free, zero dependencies.",
+  "license": "Apache-2.0",
+  "author": "Jerry Xiao",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/i098/ascii-pond.git"
+  },
+  "homepage": "https://github.com/i098/ascii-pond#readme",
+  "bugs": "https://github.com/i098/ascii-pond/issues",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "ascii",
+    "water",
+    "pond",
+    "ripple",
+    "waves",
+    "canvas",
+    "animation"
+  ],
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}
